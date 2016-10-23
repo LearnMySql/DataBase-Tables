@@ -1,0 +1,82 @@
+/*Creando la base de datos*/
+Create database Biblioteca
+
+/* Mostrar las base de datos creadas */
+Show Databases
+
+/* Usando la base de datos biblioteca */
+Use Biblioteca
+
+/* Creando la tabla libros */
+Create table Libros
+(
+	CodLib int not null,
+    NomLib char(60) not null,
+    EditLib char(35) not null,
+    AutLib char(35) not null,
+    GenLib char(35) not null,
+    NumPagLib int not null,
+    FecEdicLib date not null,
+    CONSTRAINT CodLib_PK Primary key (CodLib)
+)
+
+/* Creando la tabla préstamos */
+Create table Prestamos
+(
+	NumPres int not null,
+    CodLib int not null,
+    CodUser int not null,
+    FecSalLib date not null,
+    FecDevLib date not null,
+    CONSTRAINT NumPres_PK Primary Key (NumPres)
+)
+    
+/* Creando la tabla usuarios */
+Create table Usuarios
+(
+	CodUs int not null,
+    NomUs char(40) not null,
+    ApeUs char(40) not null,
+    DNIUs char(8) not null,
+    DirUs char(50) not null,
+    DistUs char(40) not null,
+    Provincia char(40) not null,
+    FeNac date not null,
+    CONSTRAINT CodUs_PK Primary Key (CodUs)
+)
+
+/* Creando relaciones en la tabla detalle o tabla principal */
+Alter table Prestamos
+	Add CONSTRAINT CodLib FOREIGN KEY (CodLib) REFERENCES Libros (CodLib),
+    Add CONSTRAINT CodUs FOREIGN KEY (CodUser) REFERENCES Usuarios (CodUs)
+    
+/* Eliminando relaciones entre tablas*/
+Alter table Prestamos
+	Drop Foreign key CodLib,
+    Drop Foreign key CodUs
+
+/* Mostrar Keys de una tabla*/
+Show keys from Prestamos
+Show keys from Libros
+Show keys from Usuarios
+
+/* Mostrar las columnas de la tabla libros */
+Show Columns from Libros
+Show Columns from Usuarios
+Show Columns from Prestamos
+
+/* Agregar una columna a la tabla Libros */
+Alter table Libros
+	Add EstLib char(20)
+    
+/* Agregando dos columnas a la tabla Usuarios */
+Alter table Usuarios
+	Add (Sexo char(1), EstCivUs char(20))
+    
+/* Eliminar una columna de la tabla Libros */
+ALter table Libros
+	Drop EstLib
+
+/* Eliminar dos columnas de la tabla Usuarios */
+ALter table Usuarios
+	Drop Sexo, Drop EstCivUs
