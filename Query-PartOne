@@ -1,0 +1,157 @@
+
+/* Mostrar el nombre, autor y el número de páginas de los libros */
+Select NomLib, AutLib, NumPagLib From Libros
+Show columns from libros
+
+/* Mostrar nombres, apellidos y DNI de los usuarios de la Biblioteca */
+Select NomUs, ApeUs, DNIUs from Usuarios
+
+/* Mostrar el código de usuario, fecha de salida y devolución del libro */
+Select CodUser, FecSalLib, FecDevLib from Prestamos
+
+/* Mostrar todos los libros cuyo autor es Miguel de Cervantes Saavedra */
+Select NomLib, AutLib
+	From Libros
+    Where AutLib = 'Miguel de Cervantes Saavedra'
+    
+/* Mostrar todos lo usuarios que pertenecen al distrito de Imperial */
+Select NomUs, ApeUs, DistUs
+	From Usuarios
+    Where DistUs = 'Imperial'
+    
+/* Mostrar los usuarios de todos los distritos excepto los de Imperial */
+
+Select NomUs, ApeUs, DistUs
+	From Usuarios
+    Where DistUs Not Like 'Imperial'
+
+/* Mostrar nombre, apellidos, DNI y Fecha de Nacimiento del usuario cuyo DNI es 40155263 */
+Select NomUs, ApeUs, DNIUs, FeNac
+	From Usuarios
+    Where DNIUs = '40155263'
+
+/* Mostrar autor, nombre y género de  libros cuyo género sea político y su autor sea Maquiavelo */
+Select NomLib, AutLib, GenLib
+	From Libros
+    Where GenLib = 'Político' AND AutLib = 'Maquiavelo'
+    
+/* Mostrar todos los libros cuyo género sea aventura o novela */
+Select NomLib, AutLib, GenLib
+	From Libros
+    Where GenLib = 'Aventura' OR GenLib = 'Novela'
+    
+/* Mostrar todos los libros que se hayan editado en el año 1979 y sean de la editorial Anaya ó 
+Se hayan editado en el año 1995 y la editorial sea S.N. */    
+Select NomLib, EditLib, FecEdicLib
+	From Libros    
+	Where (EditLib = 'Anaya' AND date_format(FecEdicLib, '%Y') = 1979) 
+			OR
+			(EditLib = 'S.M' AND date_format(FecEdicLib, '%Y') = 1995) 
+
+/* Mostrar el listado de distritos de procedencia de los usuarios, sin repetirse */
+Select Distinct DistUs
+	From Usuarios;
+select * from usuarios
+
+/* Mostrar todos los libros cuyo año de edición sea 1985 */
+Select NomLib, FecEdicLib
+	From Libros
+	Where (date_format(FecEdicLib, '%Y')) = 1985
+
+/* Mostrar todos los usuarios que hayan naciendo entre 1970 y 1985  */
+Select NomUs, ApeUs, FeNac
+	From Usuarios
+	Where date_format(FeNac, '%Y') BETWEEN '1970' AND '1985'    
+
+/* Mostrar todos préstamos realizados durante el mes de noviembre del año 1999 */
+Select CodLib, CodUser, FecSalLib
+	From Prestamos
+	Where date_format(FecSalLib, '%d/%M/%Y') BETWEEN '01/11/1999' AND '31/11/1999'
+
+/* Mostrar todos los usuarios cuyo distrito de procedencia inicie con la palabra San */
+Select NomUs, ApeUs, DistUs
+	From Usuarios
+	Where DistUs Like 'San%'
+    
+/* Mostrar todos los libros cuyo nombre de editorial empiece con la letra A */
+Select NomLib, EditLib
+	From Libros
+	Where EditLib Like 'A%'
+    
+/* Mostrar los libros de todos los generos excepto de los que son Caballeresco */
+Select NomLib, AutLib, GenLib
+	From Libros
+	Where GenLib Not Like 'Caballeresco'
+ 
+/* Mostrar el número de préstamo, código, nombre y autor de libro de la tabla préstamos */
+Select Prestamos.NumPres, Prestamos.CodLib, Libros.NomLib, AutLib
+	From Prestamos, Libros
+    Where Prestamos.CodLib = Libros.CodLib;
+
+ /* Mostrar que libros han sido prestados y cuando serán devueltos */
+ Select Prestamos.CodLib, Libros.NomLib, Prestamos.FecDevLib
+	From Prestamos, Libros
+    Where Prestamos.CodLib = Libros.CodLib;
+
+/* Mostrar datos del usuario y los datos del libro que ha pedido prestado */
+Select Prestamos.NumPres, Usuarios.NomUs, Usuarios.ApeUs, Libros.NomLib, Libros.AutLib
+	From Prestamos, Usuarios, Libros
+    Where Prestamos.CodUser = Usuarios.CodUs AND Prestamos.CodLib = Libros.CodLib;
+
+/* Mostrar el nombre y género de los libros que han sido prestados excepto los del género Caballeresco */
+Select Libros.NomLib, Libros.GenLib
+	From Prestamos, Libros
+    Where Prestamos.CodLib = Libros.CodLib 
+		And GenLib Not Like 'Caballeresco'
+
+/* Mostrar el nombre, editorial y autor de libros prestados que hayan sido editados en 1995 */
+Select NomLib, EditLib, AutLib, FecEdicLib
+	From Prestamos, Libros
+    Where Prestamos.CodLib = Libros.CodLib
+		And date_format(FecEdicLib, '%Y') = 1995
+
+/* Mostrar el número de préstamo, código, nombre y autor de libro de la tabla préstamos con Join */
+Select Prestamos.NumPres, Prestamos.CodLib, Libros.NomLib, AutLib
+	From Prestamos INNER JOIN Libros ON Prestamos.CodLib = Libros.CodLib;
+    
+/* Mostrar datos del usuario y los datos del libro que ha pedido prestado con Join */
+Select Prestamos.NumPres, Usuarios.NomUs, Usuarios.ApeUs, Libros.NomLib, Libros.AutLib
+	From Prestamos INNER JOIN Usuarios INNER JOIN Libros
+    ON Prestamos.CodUser = Usuarios.CodUs AND Prestamos.CodLib = Libros.CodLib;
+
+/* Agrupar y mostrar la cantidad de libros por género */
+Select GenLib, Count(GenLib) AS TotGen
+	From Libros
+	Group by GenLib
+    Order by GenLib
+
+/* Agrupar y mostrar la cantidad de usuarios por Distrito */
+Select DistUs, Count(DistUs) AS 'Cantidad por Distrito'
+	From Usuarios
+	Group by DistUs
+    Order by DistUs Desc
+
+/* Agrupar y mostrar la cantidad de usuarios por Provincia */
+Select Provincia, Count(Provincia) AS 'Cantidad por Provincia'
+	From Usuarios
+	Group by Provincia
+
+/* Agrupar y mostrar la cantidad de libros por editorial */ 
+Select EditLib, Count(EditLib) AS 'Por editorial'
+	From Libros
+	Group by EditLib
+    Order by EditLib Desc;
+    
+/* Mostrar las editoriales que tengan 2 o más libros */
+Select EditLib, Count(EditLib) AS 'Por editorial'
+	From Libros
+	Group by EditLib
+    Having Count(EditLib) >= 2
+    Order by EditLib Desc
+
+/* Mostrar el código de usuario que ha pedido libros 2 veces o más */
+Select CodUser, Count(CodUser) AS 'Pedidos por usuario'
+	From Prestamos
+    Group by CodUser
+    Having Count(CodUser) >= 2
+    Order by CodUser
