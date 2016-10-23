@@ -1,0 +1,59 @@
+/* Insertar registros en tabla Libros */
+Insert into Libros
+(CodLib, NomLib, EditLib, AutLib, GenLib, NumPagLib, FecEdicLib)
+Values
+('1', 'Don Quijote de la Mancha I', 'Anaya', 'Miguel de Cervantes Saavedra', 'Caballeresco', '517', STR_TO_DATE('05/OCTOBER/1979','%d/%M/%Y'))
+
+/* Mostrar el registro insertado en la tabla*/
+Select * From Libros
+
+/* Agregar dos o más registros a la tabla Libros */
+Insert into Libros
+(CodLib, NomLib, EditLib, AutLib, GenLib, NumPagLib, FecEdicLib)
+Values
+('2', 'Don Quijote de la Mancha II', 'Anaya', 'Miguel de Cervantes Saavedra', 'Caballeresco', '517', STR_TO_DATE('05/OCTOBER/1990','%d/%M/%Y')),
+('3', 'Historia de Nueva Orleans', 'Alfaraguara', 'William Faulkner', 'Novela', '186', STR_TO_DATE('10/APRIL/1985','%d/%M/%Y'))
+
+/* Mostrar todos los registros agregados a la tabla Libro y Usuarios */
+Select * From Libros;
+Select * From Usuarios;
+Select * From Prestamos;
+
+/* Borrar todos los registros de la tabla*/
+Delete From Libros
+
+/* Agregar más registros a la tabla Libros */
+Insert into Libros
+(CodLib, NomLib, EditLib, AutLib, GenLib, NumPagLib, FecEdicLib)
+Values
+('4', 'El Principito', 'Andina', 'Antonie Saint', 'Aventura', '120', STR_TO_DATE('09/APRIL/1996','%d/%M/%Y')),
+('5', 'El Príncipe', 'S.M', 'Maquiavelo', 'Político', '210', STR_TO_DATE('12/AUGUST/1995','%d/%M/%Y')),
+('6', 'Diplomacia', 'S.M', 'Henry Kissinger', 'Político', '825', STR_TO_DATE('10/JUNE/1975','%d/%M/%Y'))
+
+/* Insertar registros en la tabla Usuarios */
+Insert into Usuarios
+(CodUs, NomUs, ApeUs, DNIUs, DirUs, DistUs, Provincia, FeNac)
+Values
+('1', 'Inés', 'Posadas Gil','25786321', 'Av. Las Escaleritas 125', 'Nuevo Imperial', 'Cañete', STR_TO_DATE('04/JULY/1971','%d/%M/%Y')),
+('2', 'José', 'Sánchez Pons','40155263', 'Meza y López 51', 'Lunahuaná', 'Cañete', STR_TO_DATE('06/SEPTEMBER/1966','%d/%M/%Y')),
+('3', 'Miguel', 'Gómez Sáenz','15478952', 'Gran Vía 71', 'Imperial', 'Cañete', STR_TO_DATE('09/DECEMBER/1976','%d/%M/%Y')),
+('4', 'Eva', 'Santana Páez','01563289', 'Pío Baroja 23', 'San Vicente', 'Cañete', STR_TO_DATE('23/MAY/1980','%d/%M/%Y')),
+('5', 'Yolanda', 'Betancor Díaz','45896325', 'El Cid 45', 'San Luis', 'Cañete', STR_TO_DATE('17/SEPTEMBER/1976','%d/%M/%Y'))
+
+Insert into Usuarios
+(CodUs, NomUs, ApeUs, DNIUs, DirUs, DistUs, Provincia, FeNac)
+Values
+('6', 'Panchito', 'Guerra Cama','78945612', 'Av. Los Galácticos', 'Imperial', 'Cañete', STR_TO_DATE('06/JUNE/1986','%d/%M/%Y')),
+
+/*Insertar registros a la tabla Préstamos*/
+Insert into Prestamos
+(NumPres, CodLib, CodUser, FecSalLib, FecDevLib)
+Values
+('1', '1', '3', STR_TO_DATE('01/NOVEMBER/1999','%d/%M/%Y'), STR_TO_DATE('13/NOVEMBER/1999','%d/%M/%Y')),
+('2', '3', '2', STR_TO_DATE('03/NOVEMBER/1999','%d/%M/%Y'), STR_TO_DATE('18/NOVEMBER/1999','%d/%M/%Y')),
+('3', '2', '5', STR_TO_DATE('18/NOVEMBER/1999','%d/%M/%Y'), STR_TO_DATE('25/NOVEMBER/1999','%d/%M/%Y')),
+('4', '5', '2', STR_TO_DATE('21/NOVEMBER/1999','%d/%M/%Y'), STR_TO_DATE('01/DECEMBER/1999','%d/%M/%Y')),
+('5', '6', '4', STR_TO_DATE('21/NOVEMBER/1999','%d/%M/%Y'), STR_TO_DATE('30/NOVEMBER/1999','%d/%M/%Y')),
+('6', '2', '4', STR_TO_DATE('26/NOVEMBER/1999','%d/%M/%Y'), STR_TO_DATE('01/DECEMBER/1999','%d/%M/%Y')),
+('7', '4', '3', STR_TO_DATE('30/NOVEMBER/1999','%d/%M/%Y'), STR_TO_DATE('05/DECEMBER/1999','%d/%M/%Y')),
+('8', '1', '1', STR_TO_DATE('01/DECEMBER/1999','%d/%M/%Y'), STR_TO_DATE('04/DECEMBER/1999','%d/%M/%Y'))
